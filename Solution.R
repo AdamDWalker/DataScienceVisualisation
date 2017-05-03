@@ -29,6 +29,7 @@ temp_summary <- ddply(df,.(weather,temp),
 season_summary <- ddply(df,.(season,hour),
                       summarise, cnt = mean(cnt))
 
+## ===================== Generates a plot for hour/weather ===================== ##
 ggplot(df, aes(x = hour, y = cnt, colour = weather)) +
   geom_point(data = weather_summary, aes(group = weather)) +
   geom_line(data = weather_summary, aes(group = weather)) +
@@ -42,6 +43,21 @@ ggplot(df, aes(x = hour, y = cnt, colour = weather)) +
   axis.line = element_line(color = 'black'),
   panel.background = element_blank())
 
+## ===================== Generates a plot for temp/weather ===================== ##
+ggplot(df, aes(x = temp, y = cnt, colour = weather)) +
+  geom_point(data = temp_summary, aes(group = weather)) +
+  geom_line(data = temp_summary, aes(group = weather)) +
+  scale_x_continuous("Temperature (Normalised)") +
+  scale_y_continuous("Count") +
+  theme_minimal() +
+  ggtitle("Rentals v temperature per weather condition\n") + 
+  theme(plot.title=element_text(size=18),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.line = element_line(color = 'black'),
+        panel.background = element_blank())
+
+## ===================== Generates a plot for hour/season ===================== ##
 ggplot(df, aes(x = hour, y = cnt, colour = season)) +
   geom_point(data = season_summary, aes(group = season)) +
   geom_line(data = season_summary, aes(group = season)) +
