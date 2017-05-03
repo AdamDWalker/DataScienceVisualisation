@@ -32,10 +32,10 @@ season_summary <- ddply(df,.(season,hour),
 ggplot(df, aes(x = hour, y = cnt, colour = weather)) +
   geom_point(data = weather_summary, aes(group = weather)) +
   geom_line(data = weather_summary, aes(group = weather)) +
-  scale_x_continuous("Hour") +
+  scale_x_discrete("Hour", limits=0:23) +
   scale_y_continuous("Count") +
   theme_minimal() +
-  ggtitle("Rentals per hour for each weather condition\n") + 
+  ggtitle("Average hourly rentals per weather condition\n") + 
   theme(plot.title=element_text(size=18),
   panel.grid.major = element_blank(),
   panel.grid.minor = element_blank(),
